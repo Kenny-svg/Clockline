@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloakline — credit without the books</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="mast">
+      <div>
+        <p class="brand">Cloakline</p>
+        <p class="brand-sub">Credit desk</p>
+      </div>
+      <p class="mast-note">The line is public. The books are not.</p>
+    </header>
+
+    <main>
+      <section class="intro">
+        <h1>Two companies. Both packets are redacted. Only one line opens.</h1>
+        <p>
+          Cloakline scores a fixed set of statements with a published formula, pins a fresh
+          NEAR AI Cloud gateway attestation to the result, and lets the vault draw USDC to
+          Ethereum only when that record says pass. Revenue never lands on the public record.
+        </p>
+        <div class="market" id="market">Reading Rhea USDC…</div>
+        <div class="actions">
+          <button id="score" type="button">Score both companies</button>
+          <button id="reset" type="button" class="ghost">Clear the public record</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="packets" id="packets" aria-live="polite"></section>
+
+      <section class="explorer">
+        <div class="explorer-head">
+          <h2>Public record</h2>
+          <p>What a NEAR explorer would keep. Search this page for a revenue figure after scoring. There isn’t one.</p>
+        </div>
+        <div id="ledger"></div>
+      </section>
+
+      <section class="replay">
+        <div class="explorer-head">
+          <h2>The same model, replayed</h2>
+          <p>Eight synthetic companies. Run <code>npm run replay</code> to print this table without the network. The formula is <code>cloakline-score-1</code>.</p>
+        </div>
+        <div id="replay"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
