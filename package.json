@@ -1,0 +1,16 @@
+{
+  "name": "cloakline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A credit desk that opens a line against company books without putting the books on a public ledger.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.js",
+    "replay": "node src/replay.js"
+  },
+  "license": "MIT"
+}
