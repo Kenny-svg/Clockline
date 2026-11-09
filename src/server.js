@@ -18,8 +18,10 @@ const TYPES = {
   ".svg": "image/svg+xml",
 };
 
+const defaultLedger = process.env.VERCEL ? "/tmp/cloakline-ledger.json" : join(root, "data/ledger.json");
+
 export function createApp({
-  ledgerPath = join(root, "data/ledger.json"),
+  ledgerPath = defaultLedger,
   attest = attestGateway,
   markets = { rheaUsdc, quoteDraw, quoteRepay },
 } = {}) {
@@ -187,6 +189,16 @@ function serveStatic(pathname, res) {
 }
 
 function readBody(req) {
+  if (req.body && typeof req.body === "object" && !Buffer.isBuffer(req.body)) {
+    return Promise.resolve(req.body);
+  }
+  if (typeof req.body === "string" && req.body.length) {
+    try {
+      return Promise.resolve(JSON.parse(req.body));
+    } catch {
+      return Promise.reject(Object.assign(new Error("Body must be JSON."), { status: 400 }));
+    }
+  }
   return new Promise((resolve, reject) => {
     const chunks = [];
     req.on("data", (chunk) => chunks.push(chunk));
@@ -209,7 +221,7 @@ function send(res, status, payload) {
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
-if (isMain) {
+if (isMain && !process.env.VERCEL) {
   const port = Number(process.env.PORT || 4173);
   const { server } = createApp();
   server.listen(port, () => {
