@@ -44,6 +44,6 @@ Division is integer division toward zero. There are no floats in the decision.
 
 ## What this is not
 
-It is not a trained default model and it is not a claim about NEAR the asset. The eight companies are synthetic. The Rhea borrow rate on the desk is a live price for the line, read from Rhea’s lending API. It does not enter the pass or fail decision. A company that passes still has to fit inside its own limit, and the draw quote is a separate Intents price for moving USDC to Ethereum.
+It is not a trained default model and it is not a claim about NEAR the asset. The eight companies are synthetic. The Rhea borrow rate on the desk is a live price for the line, read from a `get_asset` view on `contract.main.burrow.near`. It does not enter the pass or fail decision. A company that passes still has to fit inside its own limit, and the draw quote is a separate Intents price for moving USDC to Ethereum.
 
 The attestation next to a decision proves the gateway echoed a nonce minted here and returned an Intel quote. It does not, in this build, prove the quote against Intel DCAP, and it does not prove that a language model chose the limit. The limit comes from the formula above.

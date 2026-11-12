@@ -26,7 +26,7 @@ Open http://127.0.0.1:4173
 4. Click **Score both companies**. Harbor shows **Pass** and **$27,200**. Red Lantern shows **Decline** and its reason codes. Each card lists the gateway checks. “Nonce echoed” and “Intel quote present” are checked. “Intel DCAP quote verification” stays **Not claimed**. The public record underneath shows a books commitment, a model hash, a signer, and a quote hash. It does not show revenue, cash, or payables.
 5. On Harbor, leave the sample Ethereum address and click **Quote the draw**. A green box shows a dry NEAR Intents quote: $5,000 of USDC in, an amount out on Ethereum, and a time estimate. Nothing is sent. Click **Record a repayment**. Outstanding returns to $0, with a dry quote for the USDC coming back to NEAR.
 6. On Red Lantern, click **Request $10,000 anyway**. The box says **Refused** and names the decline. The outstanding balance stays 0.
-7. The Rhea strip at the top shows a live USDC borrow rate from `contract.main.burrow.near` when that API is reachable. The line is priced at that rate. The desk does not borrow from Rhea in this build. It reads the market and settles the draw quote through Intents.
+7. The Rhea strip at the top shows a live USDC borrow rate from a `get_asset` view on `contract.main.burrow.near`. The line is priced at that rate. The desk does not borrow from Rhea in this build. It reads the market and settles the draw quote through Intents.
 
 Scoring needs a network call to `https://cloud-api.near.ai/v1/attestation/report`. No API key. The quote needs `https://1click.chaindefuser.com`. If either call fails, the desk says so and does not invent a signature or a fill.
 
@@ -65,26 +65,8 @@ Methods, which are the contract surface:
 ## NEAR
 
 - **NEAR AI Cloud** gateway attestation, nonce-bound, no key: https://docs.near.ai/cloud/verification/cloud-api/gateway-attestation
-- **Rhea** lending read of native USDC on `contract.main.burrow.near` via `https://lendingsdk.rhea.finance/get_assets_paged_detailed`. Borrow APR is the price shown on the desk. Balances use the token’s 6 decimals plus Rhea’s `extra_decimals`.
+- **Rhea** lending read of native USDC on `contract.main.burrow.near` via a NEAR RPC `get_asset` view. Borrow APR is the price shown on the desk. Balances use the token’s 6 decimals plus Rhea’s `extra_decimals`.
 - **NEAR Intents** `POST https://1click.chaindefuser.com/v0/quote` with `dry: true`. Origin `nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1` (USDC on NEAR), destination `nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near` (USDC on Ethereum), `depositType: INTENTS`. There is no Intents testnet. This path does not deposit.
-
-## Layout
-
-```
-src/model.js       published score
-src/vault.js       public ledger and draw rules
-src/attest.js      live gateway attestation
-src/markets.js     Rhea read and Intents dry quotes
-src/server.js      desk API and the page
-src/replay.js      thesis table
-data/companies.json
-public/            the desk
-test/desk.test.js
-```
-
-## Second project
-
-This repository is Cloakline only. If the same person submits another NEAR Hackathon project, name that repository here before submitting.
 
 ## License
 
