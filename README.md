@@ -34,7 +34,7 @@ Scoring needs a network call to `https://cloud-api.near.ai/v1/attestation/report
 
 The gateway report is requested with a 32-byte nonce generated in this process. Cloakline checks that the report echoes the nonce, that an Intel quote is present, and stores the SHA-256 of that quote. It does **not** run Intel DCAP verification. A full verifier is the one in [nearai-cloud-verifier](https://github.com/nearai/nearai-cloud-verifier). The card says this, so a pass is not a claim that the quote was checked against Intel’s root.
 
-The formula itself runs in this process, from source you can read. It is not a claim that a model inside the TEE invented the limit. Set `NEARAI_CLOUD_API_KEY` only if you later point a TEE model at the same formula. The line does not depend on that key.
+The formula itself runs in this process, from source you can read. A pass is not a claim that a model inside a TEE invented the limit.
 
 ## The formula
 
