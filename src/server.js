@@ -18,7 +18,7 @@ const TYPES = {
   ".svg": "image/svg+xml",
 };
 
-const defaultLedger = process.env.VERCEL ? "/tmp/cloakline-ledger.json" : join(root, "data/ledger.json");
+const defaultLedger = join(root, "data/ledger.json");
 
 export function createApp({
   ledgerPath = defaultLedger,
@@ -221,7 +221,7 @@ function send(res, status, payload) {
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
-if (isMain && !process.env.VERCEL) {
+if (isMain) {
   const port = Number(process.env.PORT || 4173);
   const { server } = createApp();
   server.listen(port, () => {

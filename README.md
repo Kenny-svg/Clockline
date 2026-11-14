@@ -10,6 +10,8 @@ The synthetic books live in `data/companies.json` so anyone can re-run the model
 
 ## Try it
 
+Live desk: https://clockline.onrender.com
+
 Node 20 or newer. No API key.
 
 ```sh
